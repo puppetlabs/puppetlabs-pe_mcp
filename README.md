@@ -39,7 +39,7 @@ export PE_ADMIN_PASSWORD='...'
 bolt plan run pe_mcp::deploy -i inventory.yaml \
   primary=<pe-primary-name> targets=<mcp-node-name>
 
-# Validate the deployment against the acceptance-criteria suite
+# Validate the deployment with a connectivity check
 bolt plan run pe_mcp::validate -i inventory.yaml targets=<mcp-node-name>
 ```
 
@@ -59,12 +59,15 @@ bolt plan run pe_mcp::validate -i inventory.yaml targets=<mcp-node-name>
 
 ## What `pe_mcp::validate` does
 
-Uploads and runs the verification script suite against a deployed node, producing a
-structured PASS/FAIL/SKIP report across the MCP server's acceptance criteria
-(service status, MCP handshake, tool registry, error handling, config validation,
-structured logging, nginx SSL termination, audit logging). A handful of ACs
-(OTel config, semgrep rules, BDD specs) are local-only checks and are reported as
-SKIP with instructions for running them from a clone of the server source.
+A single, self-contained connectivity check: confirms the `smart-mcp` systemd
+service is active, `nginx` is active, and the server responds correctly to an
+MCP `initialize` handshake over HTTPS. Nothing is uploaded to the target — it's
+just a few `run_command()` calls.
+
+This is intentionally lightweight. The full acceptance-criteria test suite (tool
+registry, error envelopes, structured/audit logging, and the rest) is maintained
+separately in the private `pe_mcp_control_repo` development repo, not shipped as
+part of this module.
 
 ## Connecting Claude Code to a deployed server
 
