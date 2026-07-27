@@ -129,6 +129,18 @@ from that project.
 - **"Upstream unavailable: PE rejected the RBAC token"** — the token expired or
   lacks read permissions; re-run `pe_mcp::deploy` (it detects an invalid token and
   mints a new one automatically).
+- **`bolt module install --force` re-resolves `puppet_agent` down to `0.1.0`**
+  (a placeholder release with no tasks at all), causing `deploy` to fail with
+  errors like `Could not find module puppet_agent containing task file
+  install.rb`. This is a resolver quirk in Bolt's dependency solver, not a real
+  conflict — `puppet_agent`'s Forge listing includes an early `0.1.0` release
+  that the solver can pick under some combinations of installed module
+  versions, even though `metadata.json` requires `>= 4.0.0 < 5.0.0`. The
+  `Puppetfile` committed in this repo is already hand-pinned to a working
+  version, so a plain `bolt module install` (no `--force`) never hits this.
+  Only re-run with `--force` if you need to bump a pinned version, and if it
+  reverts `puppet_agent` to `0.1.0`, re-pin it by hand (e.g. `4.28.0`) and sync
+  again without `--force`.
 
 ## License
 

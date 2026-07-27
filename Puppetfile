@@ -6,3 +6,4 @@ moduledir '.modules'
 
 mod 'puppetlabs/puppet_agent', '4.28.0'
 mod 'puppetlabs/stdlib', '9.7.0'
+mod 'puppetlabs/facts', '1.7.0'
