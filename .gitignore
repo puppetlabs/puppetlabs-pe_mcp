@@ -1,0 +1,48 @@
+# Bolt
+.modules/
+modules/
+.resource_types/
+bolt-debug.log
+.plan_cache.json
+.plugin_cache.json
+.task_cache.json
+.rerun.json
+inventory.yaml
+!inventory.yaml.example
+
+# Secrets / local env
+.env
+.envrc
+license.lic
+pe.lic
+
+# Python (vendored app's local dev caches, if developed against directly)
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# PDK / rspec-puppet
+.bundle/
+.vendor/
+vendor/
+Gemfile.lock
+bin/
+spec/fixtures/manifests/
+spec/fixtures/modules/
+pkg/
+coverage/
+.rspec_status
+
+# Editors / OS
+.DS_Store
+.idea/
+.vscode/
+*.code-workspace
+*.swp
+*.swo
+*~
+
+# Logs
+*.log

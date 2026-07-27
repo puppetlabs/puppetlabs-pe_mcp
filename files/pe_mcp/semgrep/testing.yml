@@ -1,0 +1,15 @@
+rules:
+  - id: no-httpx-in-tests
+    message: >
+      Tests must not import httpx directly. Use mock clients or
+      fixtures from conftest.py instead.
+    languages: [python]
+    severity: ERROR
+    pattern-either:
+      - pattern: import httpx
+      - pattern: from httpx import $X
+    paths:
+      include:
+        - "**/tests/**/*.py"
+      exclude:
+        - "**/tests/conftest.py"

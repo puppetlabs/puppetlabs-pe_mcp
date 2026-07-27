@@ -1,0 +1,26 @@
+{
+  "description": "Generate a PE RBAC token on the primary server",
+  "input_method": "environment",
+  "parameters": {
+    "admin_password": {
+      "description": "PE admin password",
+      "type": "String",
+      "sensitive": true
+    },
+    "lifetime": {
+      "description": "Token lifetime (e.g. 7d, 1h)",
+      "type": "String",
+      "default": "7d"
+    }
+  },
+  "implementations": [
+    {
+      "name": "generate_rbac_token.py",
+      "requirements": ["python"]
+    },
+    {
+      "name": "generate_rbac_token.sh",
+      "requirements": ["shell"]
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+rules:
+  - id: no-httpx-outside-core
+    message: >
+      Only core/clients.py may import httpx. Tools must call PE backends
+      via an injected client from InstanceDeps.
+    languages: [python]
+    severity: ERROR
+    pattern-either:
+      - pattern: import httpx
+      - pattern: from httpx import $X
+    paths:
+      include:
+        - "**/*.py"
+      exclude:
+        - "**/core/clients.py"
+        - "**/tests/**/*.py"
+        - "**/semgrep/**"
+
+  - id: no-tool-imports-another-tool
+    message: >
+      Tool modules must not import from other tool modules. Shared
+      helpers belong in core/.
+    languages: [python]
+    severity: ERROR
+    patterns:
+      - pattern: from pe_mcp.tools.$MOD import $X
+    paths:
+      include:
+        - "**/tools/*.py"
+      exclude:
+        - "**/tools/__init__.py"
+
+  - id: no-environ-outside-config
+    message: >
+      os.environ reads must live in core/config.py. All other modules
+      receive configuration via Settings or InstanceDeps injection.
+    languages: [python]
+    severity: ERROR
+    pattern-either:
+      - pattern: os.environ[$K]
+      - pattern: os.environ.get($K)
+      - pattern: os.getenv($K)
+    paths:
+      include:
+        - "**/*.py"
+      exclude:
+        - "**/core/config.py"
+        - "**/core/observability.py"
+        - "**/tests/**/*.py"
+        - "**/semgrep/**"

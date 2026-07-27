@@ -1,0 +1,26 @@
+{
+  "description": "Check whether the RBAC token on an MCP node is still valid by authenticating it against the PE primary RBAC API",
+  "input_method": "environment",
+  "parameters": {
+    "pe_primary": {
+      "description": "FQDN of the PE primary server",
+      "type": "String"
+    },
+    "token_path": {
+      "description": "Path to the RBAC token file on the MCP node",
+      "type": "String",
+      "default": "/opt/smart-mcp/rbac_token"
+    },
+    "ca_cert_path": {
+      "description": "Path to the PE CA certificate for HTTPS verification",
+      "type": "String",
+      "default": "/etc/puppetlabs/puppet/ssl/certs/ca.pem"
+    }
+  },
+  "implementations": [
+    {
+      "name": "check_rbac_token.sh",
+      "requirements": ["shell"]
+    }
+  ]
+}

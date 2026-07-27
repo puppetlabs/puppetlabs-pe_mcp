@@ -1,0 +1,21 @@
+<%- | String $venv_dir, String $install_dir, String $pe_fqdn, Optional[String] $otlp_endpoint = undef | -%>
+[Unit]
+Description=PE Smart MCP Server
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=<%= $install_dir %>
+Environment=PE_MCP_PE_CONSOLE_URL=https://<%= $pe_fqdn %>
+Environment=PE_MCP_PUPPETDB_URL=https://<%= $pe_fqdn %>:8081
+Environment=PE_MCP_CA_CERT_PATH=/etc/puppetlabs/puppet/ssl/certs/ca.pem
+Environment=PE_MCP_LOG_FILE=/var/log/smart-mcp/server.jsonl
+<% if $otlp_endpoint != undef { -%>
+Environment=PE_MCP_OTLP_ENDPOINT=<%= $otlp_endpoint %>
+<% } -%>
+ExecStart=<%= $venv_dir %>/bin/python3 -m pe_mcp.server
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

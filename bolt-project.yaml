@@ -1,0 +1,7 @@
+---
+name: pe_mcp
+disable-warnings:
+  - project_shadows_module
+modules:
+  - puppetlabs/puppet_agent
+  - puppetlabs/stdlib
