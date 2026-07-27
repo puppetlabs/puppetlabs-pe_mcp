@@ -72,23 +72,34 @@ part of this module.
 ## Connecting Claude Code to a deployed server
 
 Once deployed, the server is reachable at `https://<mcp-node-fqdn>/mcp` (nginx
-terminates SSL using the target's own PE agent certificate). Add to your Claude
-Code MCP configuration:
+terminates SSL using the target's own PE agent certificate, signed by your PE
+CA rather than a public one).
+
+The recommended way to connect is the [`puppetlabs/pe_mcp_docker`](https://github.com/puppetlabs/pe_mcp_docker)
+thin-client image — no local Python environment required:
+
+```bash
+docker pull puppet/pe-mcp-thin
+docker run --rm -it -v ~/.pe-mcp:/config puppet/pe-mcp-thin setup     # one-time
+docker run --rm -it -v ~/.pe-mcp:/config puppet/pe-mcp-thin validate  # self-check
+```
+
+Then wire it into your Claude Code MCP configuration:
 
 ```json
 {
   "mcpServers": {
     "pe-mcp": {
-      "url": "https://<mcp-node-fqdn>/mcp"
+      "type": "stdio",
+      "command": "docker",
+      "args": ["run", "--rm", "-i", "-v", "~/.pe-mcp:/config", "puppet/pe-mcp-thin:latest"]
     }
   }
 }
 ```
 
-The certificate is signed by your PE CA, not a public CA — if your MCP client
-validates certificates strictly, trust the PE CA cert
-(`/etc/puppetlabs/puppet/ssl/certs/ca.pem` on any PE-enrolled node) or configure
-your client to trust it explicitly.
+See the [`pe_mcp_docker` README](https://github.com/puppetlabs/pe_mcp_docker#readme) for full
+details, including the `setup` wizard's guidance for the PE CA certificate.
 
 ## Using as a module dependency
 
