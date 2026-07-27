@@ -1,0 +1,55 @@
+name: Python Checks (Semgrep + pytest-bdd)
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'files/pe_mcp/**'
+      - '.github/workflows/python-checks.yml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'files/pe_mcp/**'
+      - '.github/workflows/python-checks.yml'
+permissions:
+  contents: read
+
+jobs:
+  semgrep:
+    name: Semgrep Static Analysis
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Semgrep
+        run: pip install semgrep
+
+      - name: Run architecture rules
+        working-directory: files/pe_mcp
+        run: semgrep --config semgrep/architecture.yml --error .
+
+      - name: Run testing rules
+        working-directory: files/pe_mcp
+        run: semgrep --config semgrep/testing.yml --error .
+
+  pytest-bdd:
+    name: pytest-bdd Feature Specs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        working-directory: files/pe_mcp
+        run: |
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+
+      - name: Run BDD feature specs
+        working-directory: files/pe_mcp
+        run: pytest tests/ -v --tb=short
