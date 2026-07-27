@@ -5,3 +5,4 @@ disable-warnings:
 modules:
   - puppetlabs/puppet_agent
   - puppetlabs/stdlib
+  - puppetlabs/facts

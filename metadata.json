@@ -9,7 +9,8 @@
   "issues_url": "https://github.com/puppetlabs/puppetlabs-pe_mcp/issues",
   "dependencies": [
     { "name": "puppetlabs/stdlib", "version_requirement": ">= 9.0.0 < 10.0.0" },
-    { "name": "puppetlabs/puppet_agent", "version_requirement": ">= 4.0.0 < 5.0.0" }
+    { "name": "puppetlabs/puppet_agent", "version_requirement": ">= 4.0.0 < 5.0.0" },
+    { "name": "puppetlabs/facts", "version_requirement": ">= 1.0.0 < 2.0.0" }
   ],
   "operatingsystem_support": [
     { "operatingsystem": "Debian", "operatingsystemrelease": ["10", "11", "12"] },
