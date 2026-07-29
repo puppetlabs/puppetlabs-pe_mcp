@@ -1,0 +1,11 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.puppetlabs/puppetlabs-pe_mcp",
+  "description": "MCP server for Puppet Enterprise: node facts, PuppetDB, compliance, resource events, infra topology.",
+  "repository": {
+    "url": "https://github.com/puppetlabs/puppetlabs-pe_mcp",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "websiteUrl": "https://github.com/puppetlabs/pe_mcp_docker"
+}
