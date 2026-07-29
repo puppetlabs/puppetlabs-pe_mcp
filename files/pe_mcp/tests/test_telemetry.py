@@ -121,7 +121,7 @@ class TestToolCallSpanAttributes:
 
     def test_tool_span_has_name_attribute(self, otel_exporter):
         tracer = get_tracer("pe_mcp.server")
-        tool_name = "get_node_facts"
+        tool_name = "get_puppet_node_facts"
         with tracer.start_as_current_span(f"tool.{tool_name}") as span:
             span.set_attribute("tool.name", tool_name)
         spans = otel_exporter.get_finished_spans()

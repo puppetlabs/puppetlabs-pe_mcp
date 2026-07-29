@@ -1,4 +1,4 @@
-"""nodes_by_class — nodes a catalog Class is applied to."""
+"""puppet_nodes_by_class — nodes a catalog Class is applied to."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ from pe_mcp.core.deps import ServerDeps
 from pe_mcp.core.errors import ErrorEnvelope, UpstreamError, envelope_from_upstream, request_error
 from pe_mcp.tools import is_safe_class_title, normalize_class_title, quote_literal
 
-NAME = "nodes_by_class"
+NAME = "puppet_nodes_by_class"
 DESCRIPTION = (
     "Return the nodes a given Puppet catalog Class is applied to, with a "
     "per-environment breakdown. The class title is normalized to PuppetDB's "

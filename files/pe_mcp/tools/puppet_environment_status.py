@@ -1,4 +1,4 @@
-"""environment_status — environments with most-recent report timestamps."""
+"""puppet_environment_status — environments with most-recent report timestamps."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field
 from pe_mcp.core.deps import ServerDeps
 from pe_mcp.core.errors import ErrorEnvelope, UpstreamError, envelope_from_upstream
 
-NAME = "environment_status"
+NAME = "puppet_environment_status"
 DESCRIPTION = (
     "Return the environments PuppetDB has reports for, each with the "
     "timestamp of its most-recent report (a report-recency signal, not a "

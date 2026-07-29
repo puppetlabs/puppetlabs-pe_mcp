@@ -1,4 +1,4 @@
-"""recent_reports — filtered report roll-up from PuppetDB."""
+"""puppet_recent_reports — filtered report roll-up from PuppetDB."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ from pydantic import BaseModel, Field
 from pe_mcp.core.deps import ServerDeps
 from pe_mcp.core.errors import ErrorEnvelope, UpstreamError, envelope_from_upstream
 
-NAME = "recent_reports"
+NAME = "puppet_recent_reports"
 DESCRIPTION = (
     "Return recent Puppet reports filtered by certname, environment, "
     "status, or time window. The pql_trace field lists the PuppetDB "

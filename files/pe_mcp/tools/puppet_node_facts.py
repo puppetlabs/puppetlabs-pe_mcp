@@ -1,4 +1,4 @@
-"""node_facts — values of chosen facts for one or many nodes."""
+"""puppet_node_facts — values of chosen facts for one or many nodes."""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ from pe_mcp.tools import (
     quote_literal,
 )
 
-NAME = "node_facts"
+NAME = "puppet_node_facts"
 DESCRIPTION = (
     "Return the values of a chosen set of facts for one or more nodes, keyed "
     "by certname then fact name. Accepts a single certname or an array of up "

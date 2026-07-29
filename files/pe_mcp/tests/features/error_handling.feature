@@ -11,10 +11,10 @@ Feature: Coarse error classification for LLM consumption
 
     Examples:
       | upstream_condition            | tool           | expected_type |
-      | HTTP 404                      | node_lookup    | not_found     |
-      | HTTP 429                      | pql_query      | rate_limited  |
-      | HTTP 503 after retry          | recent_reports | tool_error    |
-      | connection reset mid-response | impact_scope   | timeout       |
+      | HTTP 404                      | puppet_node_lookup    | not_found     |
+      | HTTP 429                      | puppet_pql_query      | rate_limited  |
+      | HTTP 503 after retry          | puppet_recent_reports | tool_error    |
+      | connection reset mid-response | puppet_impact_scope   | timeout       |
 
   Scenario: error_type is always one of the five documented categories
     Given the MCP server is started with mock PE backends

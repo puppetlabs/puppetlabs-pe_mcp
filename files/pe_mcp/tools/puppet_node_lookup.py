@@ -1,4 +1,4 @@
-"""node_lookup — list all nodes managed by Puppet Enterprise."""
+"""puppet_node_lookup — list all nodes managed by Puppet Enterprise."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field
 from pe_mcp.core.deps import ServerDeps
 from pe_mcp.core.errors import ErrorEnvelope, envelope_from_upstream, UpstreamError
 
-NAME = "node_lookup"
+NAME = "puppet_node_lookup"
 DESCRIPTION = (
     "List all nodes managed by Puppet Enterprise. Returns certnames, "
     "latest report status, and timestamps from PuppetDB."

@@ -1,4 +1,4 @@
-"""pql_query — raw PQL escape hatch.
+"""puppet_pql_query — raw PQL escape hatch.
 
 Echoes the input PQL verbatim so the operator can copy and rerun
 elsewhere. Timeout and row cap are enforced server-side on every call.
@@ -11,7 +11,7 @@ from pydantic import BaseModel, Field
 from pe_mcp.core.deps import ServerDeps
 from pe_mcp.core.errors import ErrorEnvelope, UpstreamError, envelope_from_upstream
 
-NAME = "pql_query"
+NAME = "puppet_pql_query"
 DESCRIPTION = (
     "Run a raw PuppetDB PQL query with the operator's RBAC scope. "
     "Returns the rows PuppetDB emitted plus the PQL the server ran, "

@@ -24,11 +24,11 @@ pytestmark = pytest.mark.unit
 scenarios(FEATURE)
 
 _TOOL_DEFAULT_ARGS: dict[str, dict[str, Any]] = {
-    "node_lookup": {},
-    "pql_query": {"query": "nodes {}"},
-    "recent_reports": {},
-    "resource_events": {"report_hash": "deadbeef"},
-    "impact_scope": {"puppet_class": "profile::nginx"},
+    "puppet_node_lookup": {},
+    "puppet_pql_query": {"query": "nodes {}"},
+    "puppet_recent_reports": {},
+    "puppet_resource_events": {"report_hash": "deadbeef"},
+    "puppet_impact_scope": {"puppet_class": "profile::nginx"},
 }
 
 

@@ -1,4 +1,4 @@
-"""resource_events — resource events from a Puppet report."""
+"""puppet_resource_events — resource events from a Puppet report."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field
 from pe_mcp.core.deps import ServerDeps
 from pe_mcp.core.errors import ErrorEnvelope, UpstreamError, envelope_from_upstream
 
-NAME = "resource_events"
+NAME = "puppet_resource_events"
 DESCRIPTION = (
     "List resource-level events from a specific Puppet report, "
     "filtered by event status (failure / success / noop / skipped). "

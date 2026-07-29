@@ -58,11 +58,11 @@ def _seed_failure(cond: str, fake_puppetdb: FakePuppetDBClient) -> None:
         fake_puppetdb.queue_failure(NotFoundError("PE returned 404."))
 
 
-@when("the MCP client calls node_lookup")
-def _call_node_lookup(app: FastMCP, audit_state: dict[str, Any]) -> None:
+@when("the MCP client calls puppet_node_lookup")
+def _call_puppet_node_lookup(app: FastMCP, audit_state: dict[str, Any]) -> None:
     async def _run() -> Any:
         async with Client(app) as client:
-            return await client.call_tool("node_lookup", {})
+            return await client.call_tool("puppet_node_lookup", {})
 
     audit_state["result"] = run_sync(_run())
 

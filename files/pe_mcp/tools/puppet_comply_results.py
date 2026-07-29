@@ -1,4 +1,4 @@
-"""comply_results — CIS benchmark results from Puppet Comply.
+"""puppet_comply_results — CIS benchmark results from Puppet Comply.
 
 Queries PuppetDB for nodes with the ``puppet_comply`` fact, which
 carries CIS benchmark scan results when the Comply module is installed.
@@ -18,7 +18,7 @@ from pe_mcp.core.deps import ServerDeps
 from pe_mcp.core.errors import ErrorEnvelope, UpstreamError, envelope_from_upstream
 from pe_mcp.tools import BULK_CERTNAME_CAP, is_safe_pql_literal, quote_literal
 
-NAME = "comply_results"
+NAME = "puppet_comply_results"
 DESCRIPTION = (
     "Return Puppet Comply CIS benchmark results for nodes — per node, "
     "the benchmark profile and compliance score — read from PuppetDB "

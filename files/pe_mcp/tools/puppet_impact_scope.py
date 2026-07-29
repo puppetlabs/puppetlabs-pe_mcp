@@ -1,4 +1,4 @@
-"""impact_scope — blast radius of a Puppet class or fact change."""
+"""puppet_impact_scope — blast radius of a Puppet class or fact change."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field
 from pe_mcp.core.deps import ServerDeps
 from pe_mcp.core.errors import ErrorEnvelope, UpstreamError, envelope_from_upstream, request_error
 
-NAME = "impact_scope"
+NAME = "puppet_impact_scope"
 DESCRIPTION = (
     "Estimate the blast radius of a Puppet class or fact change. "
     "Returns the count of affected nodes, a per-environment breakdown, "

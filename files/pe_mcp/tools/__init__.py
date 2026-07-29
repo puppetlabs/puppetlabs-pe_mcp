@@ -41,14 +41,14 @@ def is_safe_class_title(value: str) -> bool:
 
 
 DEFAULT_TOOL_NAMES: tuple[str, ...] = (
-    "node_lookup",
-    "pql_query",
-    "recent_reports",
-    "resource_events",
-    "impact_scope",
-    "environment_status",
-    "node_facts",
-    "nodes_by_class",
-    "comply_results",
-    "infrastructure_map",
+    "puppet_node_lookup",
+    "puppet_pql_query",
+    "puppet_recent_reports",
+    "puppet_resource_events",
+    "puppet_impact_scope",
+    "puppet_environment_status",
+    "puppet_node_facts",
+    "puppet_nodes_by_class",
+    "puppet_comply_results",
+    "puppet_infrastructure_map",
 )

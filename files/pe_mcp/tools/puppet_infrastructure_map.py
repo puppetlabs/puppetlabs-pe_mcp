@@ -1,4 +1,4 @@
-"""infrastructure_map — Mermaid or text diagram of PE-managed infrastructure."""
+"""puppet_infrastructure_map — Mermaid or text diagram of PE-managed infrastructure."""
 
 from __future__ import annotations
 
@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field
 from pe_mcp.core.deps import ServerDeps
 from pe_mcp.core.errors import ErrorEnvelope, UpstreamError, envelope_from_upstream
 
-NAME = "infrastructure_map"
+NAME = "puppet_infrastructure_map"
 DESCRIPTION = (
     "Return a topology diagram of PE-managed infrastructure showing nodes "
     "grouped by role, environment, or OS family. Output format is Mermaid "
