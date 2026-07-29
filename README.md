@@ -108,7 +108,7 @@ control repo, the same way as any other Puppet module:
 
 ```ruby
 # Puppetfile
-mod 'puppetlabs/pe_mcp', '0.1.0'
+mod 'puppetlabs/pe_mcp', '1.0.0'
 ```
 
 ```yaml

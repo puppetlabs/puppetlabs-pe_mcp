@@ -3,6 +3,7 @@ name: pe_mcp
 disable-warnings:
   - project_shadows_module
 modules:
-  - puppetlabs/puppet_agent
+  - name: puppetlabs/puppet_agent
+    version_requirement: '4.28.0'
   - puppetlabs/stdlib
   - puppetlabs/facts
