@@ -49,6 +49,16 @@ bolt plan run pe_mcp::validate -i inventory.yaml targets=<mcp-node-name>
 
 ## What `pe_mcp::deploy` does
 
+> **Not to be confused with `PE_RBAC_TOKEN`:** the RBAC token below is
+> generated and stored *server-side*, for this deployed MCP server's own
+> read access to PuppetDB/PE APIs — you never see or set it yourself.
+> `PE_RBAC_TOKEN` is a completely different, *client-side* env var that
+> [`pe_mcp_docker`](https://github.com/puppetlabs/pe_mcp_docker)'s thin
+> client optionally sends, and only matters if you're connecting to the
+> older `pe-infra-assistant` MCP instead of the server deployed here — see
+> [that repo's README](https://github.com/puppetlabs/pe_mcp_docker#which-pe-mcp-target-am-i-connecting-to)
+> for the distinction.
+
 1. Checks for an existing valid RBAC token on the target node; generates a new one
    on the PE primary via the REST RBAC API only if needed.
 2. Applies `pe_mcp::server` (Python venv, FastMCP, the vendored `pe_mcp` server
@@ -99,7 +109,9 @@ Then wire it into your Claude Code MCP configuration:
 ```
 
 See the [`pe_mcp_docker` README](https://github.com/puppetlabs/pe_mcp_docker#readme) for full
-details, including the `setup` wizard's guidance for the PE CA certificate.
+details, including the `setup` wizard's guidance for the PE CA certificate,
+and its [CHEATSHEET.md](https://github.com/puppetlabs/pe_mcp_docker/blob/main/CHEATSHEET.md)
+for copy-paste `validate` commands and troubleshooting output to compare against.
 
 ## Using as a module dependency
 
@@ -129,6 +141,10 @@ from that project.
 - **"Upstream unavailable: PE rejected the RBAC token"** — the token expired or
   lacks read permissions; re-run `pe_mcp::deploy` (it detects an invalid token and
   mints a new one automatically).
+- **Seeing a `PE_RBAC_TOKEN` error from the thin client instead?** That's a
+  different, client-side env var — you're connecting to `pe-infra-assistant`,
+  not the server this module deployed. See
+  [`pe_mcp_docker`'s README](https://github.com/puppetlabs/pe_mcp_docker#which-pe-mcp-target-am-i-connecting-to).
 - **`bolt module install --force` re-resolves `puppet_agent` down to `0.1.0`**
   (a placeholder release with no tasks at all), causing `deploy` to fail with
   errors like `Could not find module puppet_agent containing task file
