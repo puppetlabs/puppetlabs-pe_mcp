@@ -21,31 +21,59 @@ no separate control repo required.
 
 ## Quickstart
 
+Copy the block below into a file (e.g. `deploy-pe-mcp.sh`), fill in the four
+`# EDIT ME` values, and run it with `bash deploy-pe-mcp.sh` — no manual steps
+in between.
+
 ```bash
+#!/usr/bin/env bash
+set -euo pipefail
+
+PE_PRIMARY="pe-primary.example.com"   # EDIT ME: your PE primary's hostname
+MCP_TARGET="mcp-node.example.com"     # EDIT ME: agent-enrolled node to host the MCP server
+SSH_USER="root"                       # EDIT ME: SSH user for both nodes above
+export PE_ADMIN_PASSWORD="changeme"   # EDIT ME: PE console admin password
+
 git clone https://github.com/puppetlabs/puppetlabs-pe_mcp.git
 cd puppetlabs-pe_mcp
 
-# Resolve module dependencies (puppet_agent, stdlib) into .modules/
+# Resolve module dependencies (puppet_agent, stdlib, facts) into .modules/
 bolt module install
 
 # Point at your PE infrastructure
-cp inventory.yaml.example inventory.yaml
-$EDITOR inventory.yaml   # fill in your primary + target node(s)
+cat > inventory.yaml <<EOF
+---
+groups:
+  - name: pe_primary
+    targets:
+      - ${PE_PRIMARY}
+    config:
+      transport: ssh
+      ssh:
+        host-key-check: false
+        user: ${SSH_USER}
+  - name: mcp_node
+    targets:
+      - ${MCP_TARGET}
+    config:
+      transport: ssh
+      ssh:
+        host-key-check: false
+        user: ${SSH_USER}
+EOF
 
-# Set the PE admin password used to mint an RBAC token
-export PE_ADMIN_PASSWORD='...'
-
-# Deploy the MCP server + nginx proxy to a target node
+# Deploy the MCP server + nginx proxy to the target node
 bolt plan run pe_mcp::deploy -i inventory.yaml \
-  primary=<pe-primary-name> targets=<mcp-node-name>
+  primary="${PE_PRIMARY}" targets="${MCP_TARGET}"
 
-# Validate the deployment with a connectivity check
-bolt plan run pe_mcp::validate -i inventory.yaml targets=<mcp-node-name>
+# Validate the deployment against the acceptance-criteria suite
+bolt plan run pe_mcp::validate -i inventory.yaml targets="${MCP_TARGET}"
 ```
 
 `inventory.yaml` is gitignored — never commit real target hostnames/credentials.
 `PE_ADMIN_PASSWORD` is read from the shell environment only; keep it out of git too
-(a local gitignored `.env`/`.envrc` works fine for development).
+(a local gitignored `.env`/`.envrc` works fine for development, or export it in your
+shell instead of hardcoding it in the script before running).
 
 ## What `pe_mcp::deploy` does
 
