@@ -20,7 +20,7 @@ jobs:
     name: Semgrep Static Analysis
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Install Semgrep
         run: pip install semgrep
@@ -37,7 +37,7 @@ jobs:
     name: pytest-bdd Feature Specs
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Set up Python
         uses: actions/setup-python@v5
