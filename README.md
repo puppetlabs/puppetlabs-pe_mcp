@@ -25,6 +25,9 @@ bolt module install
 
 # create an inventory (view the included inventory.yaml.example for a basic reference example)
 vi inventory.yaml         # fill in your primary + target node(s)
+
+# list the help and parameters for the `pe_mcp::deploy`
+bolt plan show pe_mcp::deploy
 ```
 
 `inventory.yaml` is gitignored — never commit real target hostnames/credentials.
@@ -32,7 +35,8 @@ vi inventory.yaml         # fill in your primary + target node(s)
 ### (2) Set the PE admin password
 
 ```bash
-export PE_ADMIN_PASSWORD='...'   # used once to mint a short-lived RBAC token; never stored by you
+# used once to mint a short-lived RBAC token; never stored by you
+export PE_ADMIN_PASSWORD='...'
 ```
 
 `PE_ADMIN_PASSWORD` is read from the shell environment only; keep it out of git too (a local gitignored `.env`/`.envrc` works fine for development).
@@ -40,7 +44,12 @@ export PE_ADMIN_PASSWORD='...'   # used once to mint a short-lived RBAC token; n
 ### (3) Deploy
 
 ```bash
-bolt plan run pe_mcp::deploy -i inventory.yaml primary=<pe-primary-name> targets=<mcp-node-name>
+# change the default token_lifetime for the MCP from 7 days to something larger to suit.
+# For example:
+bolt plan run pe_mcp::deploy \
+  primary=<pe-primary-name> \
+  targets=<mcp-node-name> \
+  token_lifetime=10y
 ```
 
 Expect:
