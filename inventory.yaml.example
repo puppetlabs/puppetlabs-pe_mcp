@@ -1,21 +1,23 @@
 ---
-# Copy this file to inventory.yaml and fill in your own targets.
-# inventory.yaml is gitignored -- never commit real hostnames/credentials.
+targets:
+- name: pe-primary
+  uri: pe-primary.example.com
+- name: mcp-node
+  uri: mcp-node.example.com
+config:
+  transport: ssh
+  ssh:
+    native-ssh: true
+    load-config: true
+    login-shell: bash
+    tty: false
+    host-key-check: false
+    run-as: root
+    user: root
 groups:
-  - name: pe_primary
+  - name: primary
     targets:
-      - pe-primary.example.com
-    config:
-      transport: ssh
-      ssh:
-        host-key-check: false
-        user: root
-
-  - name: mcp_node
+      - pe-primary
+  - name: mcp
     targets:
-      - mcp-node.example.com
-    config:
-      transport: ssh
-      ssh:
-        host-key-check: false
-        user: root
+      - mcp-node
