@@ -25,6 +25,9 @@ bolt module install
 
 # create an inventory (view the included inventory.yaml.example for a basic reference example)
 vi inventory.yaml         # fill in your primary + target node(s)
+
+# list the help and parameters for the `pe_mcp::deploy`
+bolt plan show pe_mcp::deploy
 ```
 
 `inventory.yaml` is gitignored — never commit real target hostnames/credentials.
@@ -32,7 +35,8 @@ vi inventory.yaml         # fill in your primary + target node(s)
 ### (2) Set the PE admin password
 
 ```bash
-export PE_ADMIN_PASSWORD='...'   # used once to mint a short-lived RBAC token; never stored by you
+# used once to mint a short-lived RBAC token; never stored by you
+export PE_ADMIN_PASSWORD='...'
 ```
 
 `PE_ADMIN_PASSWORD` is read from the shell environment only; keep it out of git too (a local gitignored `.env`/`.envrc` works fine for development).
@@ -40,7 +44,12 @@ export PE_ADMIN_PASSWORD='...'   # used once to mint a short-lived RBAC token; n
 ### (3) Deploy
 
 ```bash
-bolt plan run pe_mcp::deploy -i inventory.yaml primary=<pe-primary-name> targets=<mcp-node-name>
+# change the default token_lifetime for the MCP from 7 days to something larger to suit.
+# For example:
+bolt plan run pe_mcp::deploy \
+  primary=<pe-primary-name> \
+  targets=<mcp-node-name> \
+  token_lifetime=10y
 ```
 
 Expect:
@@ -57,9 +66,10 @@ PASS: MCP server on <mcp-node-name> returned HTTP 200
 
 **What `pe_mcp::deploy` does**:
 
-* Checks for an existing valid RBAC token on the target node; generates a new one on the PE primary via the REST RBAC API only if needed.
-* Creates both the FastMCP and an nginx SSL-terminating reverse proxy.
-* Verifies the deployed server responds correctly to an MCP `initialize` handshake over HTTPS.
+- Checks for an existing valid RBAC token on the target node; generates a new one on the PE primary via the REST RBAC API only if needed.
+- Creates both the FastMCP and an nginx SSL-terminating reverse proxy.
+- Verifies the deployed server responds correctly to an MCP `initialize` handshake over HTTPS.
+
 ### (4) Validate
 
 ```bash
@@ -73,14 +83,13 @@ PASS: <mcp-node-name> — smart-mcp active, nginx active, MCP handshake HTTP 200
 "Connectivity check passed"
 ```
 
-
 **What `pe_mcp::validate` does**.  It does a few lightweight checks confirming:
 
-* the FastMCP service is active, 
-* the `nginx` is active, and 
-* the server responds correctly to an MCP `initialize` handshake over HTTPS.
+- the FastMCP service is active,
+- the `nginx` is active, and
+- the server responds correctly to an MCP `initialize` handshake over HTTPS.
 
-## Connect 
+## Connect
 
 Once deployed, the server is reachable at `https://<mcp-node-fqdn>/mcp` (nginx terminates SSL using the target's own PE agent certificate, signed by your PE CA rather than a public one).
 
