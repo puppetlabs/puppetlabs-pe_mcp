@@ -12,6 +12,7 @@ Copy-paste commands for deploying and validating the PE MCP server with this mod
 | Show deploy plan's full parameter list | `bolt plan show pe_mcp::deploy` |
 
 ## Quick Start
+
 ### Initialize bolt and install the module
 
 ```bash
@@ -33,6 +34,7 @@ bolt module install
 ```
 
 Finally, configure your bolt `inventory.yaml` to connect to both your primary and "clean" MCP server.  For a sample inventory, see the [[#Sample inventory]] below.
+
 ### Deploy
 
 Before running anything bolt, make sure **(1)** to set `PE_ADMIN_PASSWORD` equal to the primary's admin password **BEFORE** running `pe_mcp::deploy`.
@@ -109,4 +111,3 @@ groups:
     targets:
       - raw-millennium
 ```
-

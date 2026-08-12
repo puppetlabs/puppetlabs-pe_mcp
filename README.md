@@ -66,9 +66,10 @@ PASS: MCP server on <mcp-node-name> returned HTTP 200
 
 **What `pe_mcp::deploy` does**:
 
-* Checks for an existing valid RBAC token on the target node; generates a new one on the PE primary via the REST RBAC API only if needed.
-* Creates both the FastMCP and an nginx SSL-terminating reverse proxy.
-* Verifies the deployed server responds correctly to an MCP `initialize` handshake over HTTPS.
+- Checks for an existing valid RBAC token on the target node; generates a new one on the PE primary via the REST RBAC API only if needed.
+- Creates both the FastMCP and an nginx SSL-terminating reverse proxy.
+- Verifies the deployed server responds correctly to an MCP `initialize` handshake over HTTPS.
+
 ### (4) Validate
 
 ```bash
@@ -82,14 +83,13 @@ PASS: <mcp-node-name> — smart-mcp active, nginx active, MCP handshake HTTP 200
 "Connectivity check passed"
 ```
 
-
 **What `pe_mcp::validate` does**.  It does a few lightweight checks confirming:
 
-* the FastMCP service is active, 
-* the `nginx` is active, and 
-* the server responds correctly to an MCP `initialize` handshake over HTTPS.
+- the FastMCP service is active,
+- the `nginx` is active, and
+- the server responds correctly to an MCP `initialize` handshake over HTTPS.
 
-## Connect 
+## Connect
 
 Once deployed, the server is reachable at `https://<mcp-node-fqdn>/mcp` (nginx terminates SSL using the target's own PE agent certificate, signed by your PE CA rather than a public one).
 
